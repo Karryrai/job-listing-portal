@@ -1,0 +1,71 @@
+
+
+const errorLink = onError(({ graphqlErrors, networkError }) => {
+    if (graphqlErrors) {
+      graphqlErrors.map(({ message, location, path }) => {
+        alert(`Graphql error ${message}`);
+      });
+    }
+  });
+
+const link=from([
+    errorLink,
+    new HttpLink({uri: "https://api.graphql.jobs/"}),
+]);
+
+const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link: link,
+  });
+function App() {
+  return (
+    <ApolloProvider client={client}>
+      {" "}
+     <Navbar/>
+     <GetUser />
+      {/* <Form/>*/}
+    </ApolloProvider>
+  );
+}
+
+
+
+            <h4>{val.cities}</h4>
+
+            <h4>{val.company}</h4>
+
+            <h4>{val.userEmail}</h4>
+
+            <h4>{val.postedAt}</h4>
+
+
+            <div>
+      <Pagination count={10} />
+      <Pagination count={10} color="primary" />
+      <Pagination count={10} color="secondary" />
+      <Pagination count={10} disabled />
+    </div>
+
+
+
+    <div>
+    
+      {" "}
+      {users.map((val) => {
+        return (
+            <div className="w3-container">
+            <ul className="w3-ul w3-card w3-hoverable">
+            <li><h6>{val.id}</h6>
+            <h3>{val.title}</h3>
+            <h4>{val.locationNames}</h4>
+            
+            <h4>{val.userEmail}</h4>
+            <h4>{val.applyUrl}</h4>
+            </li>
+            </ul>
+            </div>
+        );
+      
+    
+      })}
+    </div>
